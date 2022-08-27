@@ -2,7 +2,7 @@
 
 from sqlalchemy import Column, String, Boolean, Integer
 
-from .database import Base
+from ..database.database import Base
 
 
 class User(Base):
@@ -15,7 +15,9 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     def __repr__(self):
-        return f"<User(id={self.id}, " \
-               f"email=\"{self.email}\", " \
-               f"hashed_password=\"{self.hashed_password}\", " \
-               f"is_active={self.is_active})>"
+        return (
+            f"<User(id={self.id}, "
+            f'email="{self.email}", '
+            f'hashed_password="{self.hashed_password}", '
+            f"is_active={self.is_active})>"
+        )

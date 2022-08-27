@@ -2,15 +2,16 @@
 import os
 from dependency_injector import containers, providers
 
-from .database import Database
-from .repositories import UserRepository
-from .services import UserService
+from src.database.database import Database
+from src.repository.repositories import UserRepository
+from src.services.services import UserService
+
 
 class Container(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(modules=[".endpoints"])
+    wiring_config = containers.WiringConfiguration(modules=["src.router.endpoints"])
 
-    config = providers.Configuration(yaml_files=['config.yml'])
+    config = providers.Configuration(yaml_files=["src/config.yml"])
 
     db = providers.Singleton(Database, db_url=config.db.url)
 

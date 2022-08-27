@@ -1,8 +1,8 @@
 import pytest
 from unittest import mock
 from fastapi.testclient import TestClient
-from src.repositories import UserRepository
-from src.models import User
+from src.repository.repositories import UserRepository
+from src.domain.models import User
 from src.main import app
 
 
@@ -24,10 +24,16 @@ def test_get_list(client):
     assert response.status_code == 200
     data = response.json()
     assert data == [
-        {"id": 1, "email": "test1@email.com", "hashed_password": "pwd", "is_active": True},
-        {"id": 2, "email": "test2@email.com", "hashed_password": "pwd", "is_active": False},
+        {
+            "id": 1,
+            "email": "test1@email.com",
+            "hashed_password": "pwd",
+            "is_active": True,
+        },
+        {
+            "id": 2,
+            "email": "test2@email.com",
+            "hashed_password": "pwd",
+            "is_active": False,
+        },
     ]
-
-
-def sample_test(client):
-    assert 1 == 2
