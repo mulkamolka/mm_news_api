@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pydantic = "*"
+uvicorn = "*"
+python-dotenv = "*"
+pymysql = "*"
+sqlalchemy = "*"
+dependency-injector = {extras = ["yaml"], version = "*"}
+fastapi = {extras = ["all"], version = "*"}
+
+[dev-packages]
+pytest = "*"
+flake8 = "*"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+start = "uvicorn src.main:app --port 8000 --reload"

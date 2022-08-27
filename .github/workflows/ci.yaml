@@ -1,0 +1,36 @@
+name: CI pipeline
+
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python: [3.9]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: |
+          jq -r '.default
+          | to_entries[]
+          | .key + .value.version' \
+          Pipfile.lock > requirements.txt
+          jq -r '.develop
+          | to_entries[]
+          | .key + .value.version' \
+          Pipfile.lock > develop.requirements.txt       
+          pip install -r develop.requirements.txt
+          pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          pytest -s tests/*
