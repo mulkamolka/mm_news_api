@@ -11,6 +11,8 @@ pymysql = "*"
 sqlalchemy = "*"
 dependency-injector = {extras = ["yaml"], version = "*"}
 fastapi = {extras = ["all"], version = "*"}
+flake8 = "*"
+pre-commit = "*"
 
 [dev-packages]
 pytest = "*"
