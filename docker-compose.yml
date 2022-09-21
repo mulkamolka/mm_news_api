@@ -1,23 +1,25 @@
-version: "3"
+version: "3.8"
+
 services:
-  app:
-    container_name: myapp
-    build: ./docker/app
-    restart: always
-    volumes:
-      - ./docker/app/:/usr/src/app
-    # depends_on:
-    #   - mydb
-
-
   db:
-    container_name: mydb
-    image: mysql:5.7
+    build:
+      context: ./server/db
+      dockerfile: Dockerfile
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+  
+  server:
+    build: ./server
+    command: uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8080
+    volumes:
+      - ./server:/usr/src/app
     ports:
-      - 3306:3306
-    restart: always
+      - 8080:8080
     env_file:
       - .env
-    volumes:
-      - ./docker/mysql/initdb.d/:/docker-entrypoint-initdb.d
-      - ./docker/mysql/conf.d/:/etc/mysql/conf.d
+    depends_on:
+      - db

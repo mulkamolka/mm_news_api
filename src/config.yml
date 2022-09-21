@@ -1,2 +1,0 @@
-db:
-  url: mysql+pymysql://user:password@localhost:3306/mulkamolka?charset=utf8

@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+python-dotenv = "*"
+uvicorn = "*"
+gunicorn = "==20.1.0"
+pymysql = "*"
+dependency-injector = "*"
+sqlalchemy = "*"
+
+[dev-packages]
+pytest = "*"
+requests = "*"
+debugpy = "*"
+pytest-cov = "==3.0.0"
+flake8 = "==4.0.1"
+black = "==22.3.0"
+isort = "==5.10.1"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+start = "uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8080"
